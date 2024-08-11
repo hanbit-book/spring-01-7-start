@@ -20,4 +20,8 @@ spring:
     properties:
       hibernate:
         format_sql: true
-        dialect: org.hibernate.dialect.MySQLDialect
+    defer-datasource-initialization: true # 테이블 생성이 된 뒤 sql.init이 실행되도록 설정
+  sql:
+    init:
+      data-locations:
+        - classpath:db/data.sql # 스프링부트가 시작되면 data.sql 자동 실행
