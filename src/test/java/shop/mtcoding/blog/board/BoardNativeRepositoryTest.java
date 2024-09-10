@@ -1,9 +1,13 @@
 package shop.mtcoding.blog.board;
 
+import org.assertj.core.api.Assert;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
+
+import java.util.List;
 
 @Import(BoardNativeRepository.class) // 내가 만든 해당 객체를 테스트 전용 IoC에 로드
 @DataJpaTest // DB 관련 모든 객체를 IoC에 로드
@@ -11,6 +15,14 @@ public class BoardNativeRepositoryTest {
 
     @Autowired // DI
     private BoardNativeRepository boardNativeRepository;
+
+    @Test
+    public void findAll_test(){
+        List<Board> boardList = boardNativeRepository.findAll();
+        Assertions.assertThat(boardList.get(0).getId()).isEqualTo(5);
+        Assertions.assertThat(boardList.get(0).getTitle()).isEqualTo("제목5");
+        Assertions.assertThat(boardList.get(0).getContent()).isEqualTo("내용5");
+    }
 
     @Test
     public void save_test(){
