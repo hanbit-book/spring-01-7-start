@@ -2,8 +2,11 @@ package shop.mtcoding.blog.board;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
 
 // 생략...
 @Controller
@@ -25,7 +28,9 @@ public class BoardController {
     // 생략...
 
     @GetMapping("/board")
-    public String boardList(){
+    public String boardList(Model model){
+        List<Board> boards = boardNativeRepository.findAll();
+        model.addAttribute("models", boards);
         return "board/list";
     }
 
