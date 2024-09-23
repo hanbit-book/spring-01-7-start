@@ -17,11 +17,19 @@ public class BoardNativeRepositoryTest {
     private BoardNativeRepository boardNativeRepository;
 
     @Test
+    public void findById_test(){
+        int id = 1;
+        Board board = boardNativeRepository.findById(id);
+        Assertions.assertThat(board.getTitle()).isEqualTo("제목1");
+        Assertions.assertThat(board.getContent()).isEqualTo("내용1");
+    }
+
+    @Test
     public void findAll_test(){
-        List<Board> boardList = boardNativeRepository.findAll();
-        Assertions.assertThat(boardList.get(0).getId()).isEqualTo(5);
-        Assertions.assertThat(boardList.get(0).getTitle()).isEqualTo("제목5");
-        Assertions.assertThat(boardList.get(0).getContent()).isEqualTo("내용5");
+        List<Board> boards = boardNativeRepository.findAll();
+        Assertions.assertThat(boards.get(0).getId()).isEqualTo(5);
+        Assertions.assertThat(boards.get(0).getTitle()).isEqualTo("제목5");
+        Assertions.assertThat(boards.get(0).getContent()).isEqualTo("내용5");
     }
 
     @Test

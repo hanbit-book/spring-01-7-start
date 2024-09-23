@@ -15,6 +15,16 @@ public class BoardNativeRepository {
     @Autowired // EntityManager를 IoC에서 가져오는(DI) 어노테이션
     private EntityManager em;
 
+    public Board findById(int id){
+        // 1. 쿼리 작성 (쿼리 결과를 Board.class에 오브젝트 매핑합니다)
+        Query query =
+                em.createNativeQuery("select * from board_tb where id = ?", Board.class);
+        // 2. 쿼리 완성
+        query.setParameter(1, id);
+        // 3. 쿼리를 데이터베이스에 전송후 결과 응답 받기
+        return (Board) query.getSingleResult();
+    }
+
     public List<Board> findAll() {
         // 1. 쿼리 작성 (쿼리 결과를 Board.class에 오브젝트 매핑합니다)
         Query query =
